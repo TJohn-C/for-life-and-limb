@@ -9,7 +9,7 @@
 <body>
     <div id="story-container">
         <h1>For Life and Limb</h1>
-        <div id="story">You wake up in a foggy forest, a rusty sword at your side. A distant howl echoes—wolf? Bandit? Your stomach growls. What do you do?</div>
+        <div id="story">You wake up in a foggy forest—or is it a simulation? A rusty sword at your side, but a holographic wristband flickers. A distant howl echoes—wolf? Bandit? Glitch? Your stomach growls. What do you do?</div>
         <div id="choices">
             <button onclick="choose('hunt')">Hunt for food in the underbrush</button>
             <button onclick="choose('path')">Follow a faint path uphill</button>
@@ -18,59 +18,97 @@
 
     <script>
         const scenes = {
-    start: {
-        text: "You wake up in a foggy forest, a rusty sword at your side. A distant howl echoes—wolf? Bandit? Or... something worse? Your stomach growls. What do you do?",
-        choices: [
-            { text: "Hunt for food in the underbrush", next: "hunt" },
-            { text: "Follow a faint path uphill", next: "path" },
-            { text: "Investigate a crumbling graveyard nearby", next: "graveyard" }
-        ]
-    },
-    hunt: {
-        text: "You rustle through bushes and snag a rabbit! But thorns tear your arm—blood flows. Press on or bind the wound?",
-        choices: [
-            { text: "Ignore it and keep moving", next: "bleedout" },
-            { text: "Tear cloth to bandage", next: "survive" }
-        ]
-    },
-    path: {
-        text: "The path leads to a clearing with a campfire. An old hermit offers stew... but his eyes gleam suspiciously.",
-        choices: [
-            { text: "Accept the stew", next: "poison" },
-            { text: "Decline and draw your sword", next: "fight" }
-        ]
-    },
-    graveyard: {
-        text: "Tombstones loom like crooked teeth. A fresh grave twitches—dirt erupts as a hand claws out. A zombie rises, eyes milky, jaws slack. Run or stand your ground?",
-        choices: [
-            { text: "Flee back to the forest", next: "zombie_escape" },
-            { text: "Investigate—maybe it's a friend? (Sword ready)", next: "zombie_fight" }
-        ]
-    },
-    zombie_fight: {
-        text: "Up close, it lunges with a guttural moan. Your sword swings true—but its blood is black ichor. It drops... but shuffling echoes from other graves. Hack through or try talking?",
-        choices: [
-            { text: "Hack wildly to clear a path", next: "zombie_swarm" },
-            { text: "Lower sword: 'Wait... what do you want?'", next: "zombie_truce" }
-        ]
-    },
-    zombie_swarm: {
-        text: "You carve a bloody swath, but they overwhelm—teeth sink in. Infection spreads like fire. **Game Over: Devoured by the horde.** <button onclick='reset()'>Try Again</button>",
-        choices: []
-    },
-    zombie_truce: {
-        text: "It pauses, rasping: 'Braaains... but not yours. Plague took us. Join or die?' You nod warily—it leads you to a hidden bunker. **Victory: Undead alliance forged!** <button onclick='reset()'>Play Again</button>",
-        choices: []
-    },
-    zombie_escape: {
-        text: "You bolt, but trip on roots—a zombie grabs your ankle. You kick free, but the bite seals your fate. Fever hits by dawn. **Game Over: Infected runner.** <button onclick='reset()'>Try Again</button>",
-        choices: []
-    },
-    bleedout: { text: "The wound festers. You collapse, vision fading. **Game Over: Lost to the wild.** <button onclick='reset()'>Try Again</button>", choices: [] },
-    survive: { text: "Bandaged, you spot a river and follow it to safety. **Victory: Limb saved, life intact!** <button onclick='reset()'>Play Again</button>", choices: [] },
-    poison: { text: "The stew burns your throat. You slump, betrayed. **Game Over: Poisoned hospitality.** <button onclick='reset()'>Try Again</button>", choices: [] },
-    fight: { text: "Your sword clashes—victory! The hermit flees, leaving a map to treasure. **Victory: For life and limb!** <button onclick='reset()'>Play Again</button>", choices: [] }
-};
+            start: {
+                text: "You wake up in a foggy forest—or is it a simulation? A rusty sword at your side, but a holographic wristband flickers. A distant howl echoes—wolf? Bandit? Glitch? Your stomach growls. What do you do?",
+                choices: [
+                    { text: "Hunt for food in the underbrush", next: "hunt" },
+                    { text: "Follow a faint path uphill", next: "path" },
+                    { text: "Investigate a crumbling graveyard nearby", next: "graveyard" },
+                    { text: "Scan a glowing console in the ruins", next: "console" }
+                ]
+            },
+            hunt: {
+                text: "You rustle through bushes and snag a rabbit! But thorns tear your arm—blood flows. Press on or bind the wound?",
+                choices: [
+                    { text: "Ignore it and keep moving", next: "bleedout" },
+                    { text: "Tear cloth to bandage", next: "survive" }
+                ]
+            },
+            path: {
+                text: "The path leads to a clearing with a campfire. An old hermit offers stew... but his eyes gleam suspiciously.",
+                choices: [
+                    { text: "Accept the stew", next: "poison" },
+                    { text: "Decline and draw your sword", next: "fight" }
+                ]
+            },
+            graveyard: {
+                text: "Tombstones loom like crooked teeth. A fresh grave twitches—dirt erupts as a hand claws out. A zombie rises, eyes milky, jaws slack. Run or stand your ground?",
+                choices: [
+                    { text: "Flee back to the forest", next: "zombie_escape" },
+                    { text: "Investigate—maybe it's a friend? (Sword ready)", next: "zombie_fight" }
+                ]
+            },
+            console: {
+                text: "The console hums, projecting: 'Welcome, User. Access denied. Override or extract data?' Neon code scrolls. But alarms blare—security drones inbound.",
+                choices: [
+                    { text: "Override with brute force hack", next: "hack_force" },
+                    { text: "Extract stealthily, no traces", next: "hack_stealth" }
+                ]
+            },
+            hack_force: {
+                text: "Sparks fly—success! You unlock ship schematics... but the grid alerts. Drones swarm, lasers scorching. Fight or flee?",
+                choices: [
+                    { text: "Blast drones with console turret", next: "drone_battle" },
+                    { text: "Jack into the net for evasion", next: "net_dive" }
+                ]
+            },
+            hack_stealth: {
+                text: "Clean extract: Blueprints for a warp drive. But the AI whispers: 'You seek freedom? Upload your mind—or stay meat?'",
+                choices: [
+                    { text: "Upload: Become digital", next: "digital_end" },
+                    { text: "Stay human, grab drive and run", next: "escape_end" }
+                ]
+            },
+            drone_battle: {
+                text: "Turret shreds them, but overload fries your wristband. Reality glitches—you're trapped in the sim. **Game Over: Eternal loop.** <button onclick='reset()'>Try Again</button>",
+                choices: []
+            },
+            net_dive: {
+                text: "You surf the data streams, dodging firewalls. Emerge in a safe node with the prize. **Victory: Hacker's high score!** <button onclick='reset()'>Play Again</button>",
+                choices: []
+            },
+            digital_end: {
+                text: "Consciousness uploads—immortal code. But the AI laughs: 'Welcome to the archive, prisoner.' **Game Over: Silicon soul.** <button onclick='reset()'>Try Again</button>",
+                choices: []
+            },
+            escape_end: {
+                text: "Drive in hand, you bolt to the forest edge—a shuttle awaits. Stars beckon. **Victory: Stars await, flesh intact!** <button onclick='reset()'>Play Again</button>",
+                choices: []
+            },
+            zombie_fight: {
+                text: "Up close, it lunges with a guttural moan. Your sword swings true—but its blood is black ichor. It drops... but shuffling echoes from other graves. Hack through or try talking?",
+                choices: [
+                    { text: "Hack wildly to clear a path", next: "zombie_swarm" },
+                    { text: "Lower sword: 'Wait... what do you want?'", next: "zombie_truce" }
+                ]
+            },
+            zombie_swarm: {
+                text: "You carve a bloody swath, but they overwhelm—teeth sink in. Infection spreads like fire. **Game Over: Devoured by the horde.** <button onclick='reset()'>Try Again</button>",
+                choices: []
+            },
+            zombie_truce: {
+                text: "It pauses, rasping: 'Braaains... but not yours. Plague took us. Join or die?' You nod warily—it leads you to a hidden bunker. **Victory: Undead alliance forged!** <button onclick='reset()'>Play Again</button>",
+                choices: []
+            },
+            zombie_escape: {
+                text: "You bolt, but trip on roots—a zombie grabs your ankle. You kick free, but the bite seals your fate. Fever hits by dawn. **Game Over: Infected runner.** <button onclick='reset()'>Try Again</button>",
+                choices: []
+            },
+            bleedout: { text: "The wound festers. You collapse, vision fading. **Game Over: Lost to the wild.** <button onclick='reset()'>Try Again</button>", choices: [] },
+            survive: { text: "Bandaged, you spot a river and follow it to safety. **Victory: Limb saved, life intact!** <button onclick='reset()'>Play Again</button>", choices: [] },
+            poison: { text: "The stew burns your throat. You slump, betrayed. **Game Over: Poisoned hospitality.** <button onclick='reset()'>Try Again</button>", choices: [] },
+            fight: { text: "Your sword clashes—victory! The hermit flees, leaving a map to treasure. **Victory: For life and limb!** <button onclick='reset()'>Play Again</button>", choices: [] }
+        };
 
         function choose(nextScene) {
             const scene = scenes[nextScene];
